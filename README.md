@@ -2,7 +2,7 @@
 
 Machine learning project for detecting pneumonia from chest X-ray images.
 
-The project uses image preprocessing, PCA dimensionality reduction, and classical machine learning models to classify radiographs as either normal or pneumonia cases.
+The project uses image preprocessing, PCA dimensionality reduction and classical machine learning models to classify radiographs as either normal or pneumonia cases.
 
 ## Overview
 
