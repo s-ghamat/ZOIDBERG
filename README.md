@@ -1,111 +1,144 @@
-# Projet de Détection de Pneumonie
+# Zoidberg
 
-Projet réalisé dans le cadre de mes études à Epitech.
-Ce projet vise à développer un système de détection automatique de pneumonie à partir de radiographies thoraciques en utilisant des techniques d'apprentissage automatique.
+Machine learning project for detecting pneumonia from chest X-ray images.
 
-## Structure du Projet
+The project uses image preprocessing, PCA dimensionality reduction, and classical machine learning models to classify radiographs as either normal or pneumonia cases.
 
+## Overview
+
+Zoidberg was developed as part of an Epitech academic project.
+
+The objective is to build a complete pneumonia detection pipeline, from data exploration and preprocessing to model training, evaluation, prediction, and testing.
+
+## Scope
+
+* Chest X-ray image preprocessing
+* Data exploration and visualization
+* Feature extraction
+* PCA dimensionality reduction
+* Model training and comparison
+* Pneumonia prediction on new images
+* Single-image and batch prediction
+* Unit testing
+* Final project report
+
+## Project Structure
+
+```text
+Zoidberg/
+├── data/
+├── src/
+│   ├── preprocessing/
+│   │   └── preprocess_images.py
+│   ├── visualization/
+│   │   └── visualizer.py
+│   ├── models/
+│   │   └── predict.py
+│   └── utils/
+├── notebooks/
+│   ├── 01_exploration.ipynb
+│   ├── 02_preprocessing.ipynb
+│   └── 03_model_training_sklearn_with_pca.ipynb
+├── models/
+│   └── regression_logistic_model.pkl
+├── tests/
+│   ├── test_preprocessing.py
+│   └── test_predict.py
+├── demo.py
+├── index.html
+├── rapport_pneumonie.pdf
+└── requirements.txt
 ```
-zoidberg2.0/
-│
-├── data/                      # Dossier de données (radiographies thoraciques)
-│
-├── src/                       # Code source principal
-│   ├── preprocessing/         # Traitement des images
-│   │   └── preprocess_images.py # Fonctions de prétraitement d'images
-│   │
-│   ├── visualization/         # Visualisation des données
-│   │   └── visualizer.py      # Fonctions de visualisation
-│   │
-│   ├── models/                # Modèles d'apprentissage automatique
-│   │   └── predict.py         # Script pour charger le modèle et faire des prédictions
-│   │
-│   └── utils/                 # Utilitaires divers
-│
-├── notebooks/                 # Notebooks Jupyter
-│   ├── 01_exploration.ipynb   # Exploration des données
-│   ├── 02_preprocessing.ipynb # Test du prétraitement
-│   └── 03_model_training_sklearn_with_pca.ipynb # Entraînement des modèles avec PCA
-│
-├── models/                    # Modèles entraînés sauvegardés
-│   └── régression_logistique_model.pkl # Modèle de régression logistique entraîné
-│
-├── tests/                     # Tests unitaires
-│   ├── test_preprocessing.py  # Tests des fonctions de prétraitement
-│   └── test_predict.py        # Tests des fonctions de prédiction
-│
-├── demo.py                    # Script de démonstration
-├── index.html                 # Page de présentation du projet
-├── rapport_pneumonie.pdf      # Rapport des résultats du modèle
-└── requirements.txt           # Dépendances du projet
-```
+
+## Methods
+
+Several classical machine learning models were trained and compared:
+
+* Logistic Regression
+* Decision Tree
+* Random Forest
+* Support Vector Machine
+
+The Logistic Regression model achieved the best performance and is saved for prediction.
 
 ## Installation
 
-Pour installer les dépendances nécessaires :
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Utilisation
+## Usage
 
-### 1. Exploration et prétraitement des données
-
-- **Exploration des données** : Consultez le notebook `notebooks/01_exploration.ipynb`
-- **Prétraitement des images** : Consultez le notebook `notebooks/02_preprocessing.ipynb`
-
-### 2. Entraînement des modèles
-
-Le notebook `notebooks/03_model_training_sklearn_with_pca.ipynb` contient l'entraînement de plusieurs modèles d'apprentissage automatique avec réduction de dimension par PCA. Les modèles testés incluent :
-- Régression Logistique (meilleure performance)
-- Arbre de Décision
-- Random Forest
-- SVM
-
-### 3. Utilisation du modèle entraîné
-
-Vous pouvez utiliser le script de démonstration pour faire des prédictions sur de nouvelles images :
+### Single Image Prediction
 
 ```bash
-# Pour une seule image
-python demo.py chemin/vers/image.jpg
-
-# Pour un dossier d'images
-python demo.py --batch chemin/vers/dossier
+python demo.py path/to/image.jpg
 ```
 
-Ou utiliser le modèle directement dans votre code :
+### Batch Prediction
+
+```bash
+python demo.py --batch path/to/folder
+```
+
+### Python API
 
 ```python
 from src.models.predict import predict_pneumonia
 
-# Prédiction sur une image
-result, probability = predict_pneumonia("chemin/vers/image.jpg")
-print(f"Résultat: {result}, Probabilité: {probability:.4f}")
+result, probability = predict_pneumonia("path/to/image.jpg")
+
+print(f"Result: {result}")
+print(f"Probability: {probability:.4f}")
 ```
 
-## Résultats
+## Notebooks
 
-Le modèle de **Régression Logistique** a obtenu les meilleures performances avec :
-- **Exactitude (Accuracy)** : 95.94%
-- **Précision (Precision)** : 97.81%
-- **Rappel (Recall)** : 96.70%
-- **Score F1** : 97.25%
+| Notebook                                             | Purpose                 |
+| ---------------------------------------------------- | ----------------------- |
+| `notebooks/01_exploration.ipynb`                     | Dataset exploration     |
+| `notebooks/02_preprocessing.ipynb`                   | Image preprocessing     |
+| `notebooks/03_model_training_sklearn_with_pca.ipynb` | Model training with PCA |
 
-Ces résultats montrent que le modèle est particulièrement efficace pour détecter les cas de pneumonie tout en maintenant une bonne capacité à identifier les cas normaux.
+## Results
 
-## Tests unitaires
+The Logistic Regression model achieved the best performance.
 
-Pour exécuter les tests unitaires :
+| Metric    |  Score |
+| --------- | -----: |
+| Accuracy  | 95.94% |
+| Precision | 97.81% |
+| Recall    | 96.70% |
+| F1-score  | 97.25% |
+
+The model shows strong performance for pneumonia detection while maintaining reliable classification of normal cases.
+
+## Tests
+
+Run the unit tests:
 
 ```bash
 python -m unittest tests/test_predict.py
 python -m unittest tests/test_preprocessing.py
 ```
 
-## Limitations et perspectives
+## Limitations
 
-- Le modèle actuel ne peut pas distinguer entre différents types de pneumonie (virale, bactérienne)
-- La qualité des radiographies peut affecter les performances du modèle
-- Les travaux futurs pourraient inclure l'utilisation de réseaux de neurones plus avancés
+* The model does not distinguish between viral and bacterial pneumonia.
+* X-ray image quality can affect prediction reliability.
+* The project is academic and not intended for clinical diagnosis.
+* Future work could include deep learning models such as CNNs.
+
+## Report
+
+The full project report is available at:
+
+```text
+rapport_pneumonie.pdf
+```
+
+## Author
+
+Setayesh Ghamat
